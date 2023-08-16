@@ -69,7 +69,6 @@ public class Game {
             board.printBoard();
             playTurn(human);
             int block = computer.blockWin();
-            System.out.println("System.out.println();" + option);
             if(block == -1)
             switch(option){
 //                 /*
@@ -120,8 +119,6 @@ public class Game {
             else if (board.board[1][2] == 'X' || board.board[0][2] == 'X')
                 rotateBack = rotateBoard(3);
             else rotateBack = 0;
-
-            System.out.println("rotate back: " + rotateBack);
             /*
             in this situation no matter what the player played it will always see as
             x |    |
@@ -143,7 +140,6 @@ public class Game {
             playTurn(human);
             board.printBoard();
             place = computer.blockWin();
-            System.out.println("fdgdfgdfgdfgdfgdfgdgfg    " + rotateBack);
             if(board.board[1][1] == 'X') {
                 turn =! turn;
                 basicGame();
