@@ -11,7 +11,7 @@ public class Game {
     public Game() {
         board = new Board();
         Random random = new Random();
-        turn = random.nextBoolean();
+        turn = false;//turn = random.nextBoolean();
     }
 
     public int rotateBoard(int numOfRotation) {
@@ -52,13 +52,17 @@ public class Game {
             board.printBoard();
             playTurn(human);
             board.printBoard();
-            if (board.board[0][1] != ' ' || board.board[0][2] != ' ' || board.board[1][2] != ' '|| board.board[2][2] != ' ') {
+            if (board.board[0][1] != ' ' || board.board[0][2] != ' ' || board.board[1][2] != ' ') {
                 board.board[2][0] = 'X';
                 option = 1;
             }
             else if (board.board[1][1] != ' ') {
-                board.board[2][2] = 'X';
+//                board.board[2][2] = 'X';
                 option = 2;
+            }
+            else if (board.board[2][2] != ' '){
+                board.board[0][2] = 'X';
+                option = 4;
             }
 
             else{
@@ -69,6 +73,8 @@ public class Game {
             board.printBoard();
             playTurn(human);
             int block = computer.blockWin();
+            System.out.println("System.out.println();" + option);
+            board.printBoard();
             if(block == -1)
             switch(option){
 //                 /*
@@ -78,7 +84,7 @@ public class Game {
 //                      |    |
 //                     */
                 case 1:
-                   if(board.board[0][2] == 'O' || board.board[2][2] == 'O')
+                   if(board.board[2][2] == 'O' || board.board[0][2] == 'O')
                        board.board[2][2] = 'X';
                     else board.board[1][1] = 'X';
                     break;
@@ -96,6 +102,23 @@ public class Game {
                         board.board[1][1] = 'X';
                     }
                     break;
+
+                case 4:
+                    System.out.println("hello world");
+                    if(computer.combineMove() != -1) {
+                        System.out.println(computer.combineMove());
+                        playTurn(computer);
+
+                    }
+                    else {
+                        board.board[2][0] = 'X';
+                        board.printBoard();
+                        playTurn(human);
+                        board.printBoard();
+                        computer.winGamer();
+                        board.printBoard();
+                        basicGame();
+                    }
 
                 default:
 
@@ -119,6 +142,8 @@ public class Game {
             else if (board.board[1][2] == 'X' || board.board[0][2] == 'X')
                 rotateBack = rotateBoard(3);
             else rotateBack = 0;
+
+            System.out.println("rotate back: " + rotateBack);
             /*
             in this situation no matter what the player played it will always see as
             x |    |
@@ -140,6 +165,7 @@ public class Game {
             playTurn(human);
             board.printBoard();
             place = computer.blockWin();
+            System.out.println("fdgdfgdfgdfgdfgdfgdgfg    " + rotateBack);
             if(board.board[1][1] == 'X') {
                 turn =! turn;
                 basicGame();
